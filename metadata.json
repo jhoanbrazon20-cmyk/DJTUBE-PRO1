@@ -1,0 +1,6 @@
+{
+  "name": "DJ TUBE",
+  "description": "Aplicación de búsqueda, descarga y reproducción de música y video con diseño en modo oscuro y acentos verde neón estilo Jetpack Compose Material 3.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
