@@ -1,1 +1,1 @@
-include ':app'
+rootProject.name = "DJTUBE-PRO1"
