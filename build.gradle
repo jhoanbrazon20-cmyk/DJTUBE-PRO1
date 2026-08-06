@@ -1,16 +1,16 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.1'
-    }
+plugins {
+    id 'com.android.application' version '8.1.1' apply true
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+android {
+    namespace 'com.djtube.pro'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.djtube.pro"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
     }
 }
