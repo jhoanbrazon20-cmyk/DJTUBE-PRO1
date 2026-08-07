@@ -5,7 +5,7 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     
-    <!-- Fondo Negro con esquinas redondeadas -->
+    <!-- Fondo Negro con bordes redondeados -->
     <path
         android:fillColor="#0A0A0A"
         android:pathData="M12,0 L96,0 A12,12 0 0,1 108,12 L108,96 A12,12 0 0,1 96,108 L12,108 A12,12 0 0,1 0,96 L0,12 A12,12 0 0,1 12,0 Z" />
