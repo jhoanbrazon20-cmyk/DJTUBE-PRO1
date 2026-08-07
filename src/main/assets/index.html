@@ -18,6 +18,7 @@
             padding-bottom: 80px;
         }
 
+        /* BARRA SUPERIOR */
         .header {
             display: flex;
             justify-content: space-between;
@@ -35,6 +36,7 @@
             font-weight: 900;
             color: #00ff66;
             text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+            letter-spacing: 1px;
         }
 
         .lang-btn {
@@ -48,6 +50,7 @@
             cursor: pointer;
         }
 
+        /* BUSCADOR */
         .search-area {
             padding: 15px;
             background: #0a0a0a;
@@ -81,6 +84,18 @@
             cursor: pointer;
         }
 
+        /* ALERTA DE ENLACE COMPARTIDO */
+        .shared-banner {
+            display: none;
+            background: #00ff6622;
+            border: 1px solid #00ff66;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 15px;
+            font-size: 0.85rem;
+        }
+
+        /* SECCIONES / CONTENIDO */
         .content {
             padding: 15px;
             display: none;
@@ -125,7 +140,7 @@
             box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
         }
 
-        /* MODAL DE CALIDADES ESTILO NATUBER */
+        /* MODAL DESPLEGABLE ESTILO NATUBER */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -211,6 +226,7 @@
             color: #777;
         }
 
+        /* NAVEGACIÓN INFERIOR */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -240,15 +256,28 @@
         .nav-item.active {
             color: #00ff66;
         }
+
+        .nav-item span {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
     </style>
 </head>
 <body>
 
+    <!-- CABECERA -->
     <div class="header">
         <div class="brand">DJ TUBE</div>
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN / ES</button>
     </div>
 
+    <!-- BANNER DE ENLACE COMPARTIDO -->
+    <div id="sharedBanner" class="shared-banner">
+        📥 <strong>Enlace recibido:</strong>
+        <p id="sharedUrlText" style="word-break: break-all; margin-top: 4px; color: #00ff66;"></p>
+    </div>
+
+    <!-- BUSCADOR -->
     <div class="search-area">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Pega enlace de Facebook, YouTube o busca...">
@@ -277,11 +306,11 @@
     <div id="tab-descargas" class="content">
         <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblDescargas">Centro de Descargas</h4>
         <div id="listaDescargas">
-            <p style="color: #555; font-size: 0.85rem;" id="lblSinDescargas">No hay descargas en curso.</p>
+            <p style="color: #555; font-size: 0.85rem;" id="lblSinDescargas">No hay descargas activas.</p>
         </div>
     </div>
 
-    <!-- MODAL POPUP DE CALIDADES -->
+    <!-- MODAL VENTANA FLOTANTE DE CALIDADES -->
     <div id="downloadModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -289,7 +318,7 @@
                 <button class="close-btn" onclick="cerrarModal()">&times;</button>
             </div>
 
-            <!-- AUDIOS (MP3) -->
+            <!-- FORMATOS AUDIO (MP3) -->
             <div class="section-label">🎵 Formato Audio (Guardar en: /DJ Tube Audio)</div>
             <div class="options-grid">
                 <button class="quality-btn" onclick="procesarDescarga('mp3', '128k', 'audio')">MP3 128kbps <span>Baja</span></button>
@@ -297,7 +326,7 @@
                 <button class="quality-btn" style="grid-column: span 2; border-color: #00ff66;" onclick="procesarDescarga('mp3', '320k', 'audio')">MP3 320kbps <span>Alta Calidad HD</span></button>
             </div>
 
-            <!-- VIDEOS (MP4) -->
+            <!-- FORMATOS VIDEO (MP4) -->
             <div class="section-label">🎬 Formato Video (Guardar en: /DJ Tube Video)</div>
             <div class="options-grid">
                 <button class="quality-btn" onclick="procesarDescarga('mp4', '360p', 'video')">MP4 360p <span>Baja</span></button>
@@ -308,7 +337,7 @@
         </div>
     </div>
 
-    <!-- MENU NAVEGACIÓN -->
+    <!-- BARRA INFERIOR -->
     <div class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('inicio', this)">
             <span>🏠</span>
@@ -325,6 +354,15 @@
         let currentUrl = '';
         let currentLang = 'es';
 
+        // Capturar enlaces que vienen desde Facebook / YouTube al presionar Compartir
+        function capturarEnlaceCompartido(url) {
+            document.getElementById('searchInput').value = url;
+            document.getElementById('sharedUrlText').innerText = url;
+            document.getElementById('sharedBanner').style.display = 'block';
+            switchTab('inicio', document.querySelectorAll('.nav-item')[0]);
+            abrirOpcionesDescarga('Enlace Compartido', url);
+        }
+
         function abrirOpcionesDescarga(titulo, url) {
             currentTitle = titulo;
             currentUrl = url;
@@ -340,14 +378,14 @@
             cerrarModal();
             const tituloCompleto = currentTitle + ' (' + calidad + ')';
             
-            // Invocar el gestor de descargas de Android en la carpeta correspondiente
+            // Llamar a la función nativa en Android
             if (window.AndroidInterface && window.AndroidInterface.descargarArchivo) {
                 window.AndroidInterface.descargarArchivo(currentUrl, tituloCompleto, extension, tipo);
             } else {
-                alert('Iniciando descarga: ' + tituloCompleto + ' en /DJ Tube ' + (tipo === 'audio' ? 'Audio' : 'Video'));
+                alert('Iniciando descarga: ' + tituloCompleto + '\nUbicación: Download/DJ Tube ' + (tipo === 'audio' ? 'Audio' : 'Video'));
             }
 
-            // Registrar elemento en la pestaña de descargas de la app
+            // Registrar en la lista de descargas
             const lista = document.getElementById('listaDescargas');
             if(document.getElementById('lblSinDescargas')) {
                 document.getElementById('lblSinDescargas').remove();
