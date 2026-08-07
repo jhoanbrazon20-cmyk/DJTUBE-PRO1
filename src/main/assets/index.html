@@ -5,304 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJ TUBE PRO</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background-color: #050505;
-            color: #ffffff;
-            padding-bottom: 80px;
-        }
-
-        /* BARRA SUPERIOR */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background-color: #0a0a0a;
-            border-bottom: 2px solid #00ff66;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .brand {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #00ff66;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
-            letter-spacing: 1px;
-        }
-
-        .lang-btn {
-            background: #111;
-            color: #00ff66;
-            border: 1px solid #00ff66;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* BUSCADOR */
-        .search-area {
-            padding: 15px;
-            background: #0a0a0a;
-        }
-
-        .search-box {
-            display: flex;
-            background-color: #141414;
-            border-radius: 25px;
-            padding: 4px 6px 4px 15px;
-            border: 1px solid #00ff66;
-            box-shadow: 0 0 8px rgba(0, 255, 102, 0.15);
-        }
-
-        .search-box input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .search-box button {
-            background: #00ff66;
-            border: none;
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* ALERTA DE ENLACE COMPARTIDO */
-        .shared-banner {
-            display: none;
-            background: #00ff6622;
-            border: 1px solid #00ff66;
-            padding: 12px;
-            border-radius: 10px;
-            margin: 10px 15px;
-            font-size: 0.85rem;
-        }
-
-        /* SECCIONES / CONTENIDO */
-        .content {
-            padding: 15px;
-            display: none;
-        }
-
-        .content.active {
-            display: block;
-        }
-
-        .media-card {
-            background: #111111;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 1px solid #222;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .media-title {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .media-meta {
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        .btn-download-main {
-            background: #00ff66;
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
-        }
-
-        /* MODAL DESPLEGABLE ESTILO NATUBER */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 200;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .modal-content {
-            width: 100%;
-            background: #121212;
-            border-top: 2px solid #00ff66;
-            border-radius: 20px 20px 0 0;
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 -5px 25px rgba(0, 255, 102, 0.3);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-        }
-
-        .modal-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #00ff66;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .section-label {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #aaa;
-            margin: 12px 0 8px 0;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .quality-btn {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .quality-btn:hover, .quality-btn:active {
-            border-color: #00ff66;
-            color: #00ff66;
-            background: #00ff6610;
-        }
-
-        .quality-btn span {
-            font-size: 0.7rem;
-            color: #777;
-        }
-
-        /* NAVEGACIÓN INFERIOR */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #0a0a0a;
-            border-top: 1px solid #1a1a1a;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .nav-item {
-            background: none;
-            border: none;
-            color: #666;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .nav-item.active {
-            color: #00ff66;
-        }
-
-        .nav-item span {
-            font-size: 1.2rem;
-            margin-bottom: 2px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #050505; color: #ffffff; padding-bottom: 80px; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background-color: #0a0a0a; border-bottom: 2px solid #00ff66; position: sticky; top: 0; z-index: 100; }
+        .brand { font-size: 1.3rem; font-weight: 900; color: #00ff66; text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
+        .lang-btn { background: #111; color: #00ff66; border: 1px solid #00ff66; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+        .search-area { padding: 15px; background: #0a0a0a; }
+        .search-box { display: flex; background-color: #141414; border-radius: 25px; padding: 4px 6px 4px 15px; border: 1px solid #00ff66; box-shadow: 0 0 8px rgba(0, 255, 102, 0.15); }
+        .search-box input { width: 100%; background: transparent; border: none; color: #ffffff; font-size: 0.9rem; outline: none; }
+        .search-box button { background: #00ff66; border: none; color: #000; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .content { padding: 15px; display: none; }
+        .content.active { display: block; }
+        .media-card { background: #111111; border-radius: 12px; padding: 14px; margin-bottom: 12px; border: 1px solid #222; display: flex; flex-direction: column; gap: 10px; }
+        .media-title { font-size: 0.95rem; font-weight: bold; color: #fff; }
+        .media-meta { font-size: 0.75rem; color: #888; }
+        .btn-download-main { background: #00ff66; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; text-align: center; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 200; justify-content: center; align-items: flex-end; }
+        .modal-content { width: 100%; background: #121212; border-top: 2px solid #00ff66; border-radius: 20px 20px 0 0; padding: 20px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .modal-title { font-size: 1rem; font-weight: bold; color: #00ff66; }
+        .close-btn { background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
+        .section-label { font-size: 0.85rem; font-weight: bold; color: #aaa; margin: 12px 0 8px 0; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .quality-btn { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .quality-btn:hover { border-color: #00ff66; color: #00ff66; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0a0a0a; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .nav-item { background: none; border: none; color: #666; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
+        .nav-item.active { color: #00ff66; }
+        .loading-status { display: none; color: #00ff66; font-size: 0.85rem; text-align: center; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- CABECERA -->
     <div class="header">
         <div class="brand">DJ TUBE</div>
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN / ES</button>
     </div>
 
-    <!-- BANNER DE ENLACE COMPARTIDO -->
-    <div id="sharedBanner" class="shared-banner">
-        📥 <strong>Enlace recibido:</strong>
-        <p id="sharedUrlText" style="word-break: break-all; margin-top: 4px; color: #00ff66;"></p>
-    </div>
-
-    <!-- BUSCADOR -->
     <div class="search-area">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Pega enlace de Facebook, YouTube o busca...">
             <button onclick="ejecutarBusqueda()" id="btnSearch">Buscar</button>
         </div>
+        <div id="statusText" class="loading-status">🔄 Procesando enlace multimedia...</div>
     </div>
 
-    <!-- PANTALLA PRINCIPAL -->
     <div id="tab-inicio" class="content active">
         <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblResultados">Explorar Contenido</h4>
-
         <div class="media-card">
-            <div class="media-title">Salsa Baúl Mix 2026 - Edición Especial</div>
-            <div class="media-meta">DJ Jhoan Rodríguez • 25:14 min</div>
-            <button class="btn-download-main" onclick="abrirOpcionesDescarga('Salsa Baúl Mix 2026', 'https://example.com/audio.mp3')">📥 Descargar (MP3 / MP4)</button>
-        </div>
-
-        <div class="media-card">
-            <div class="media-title">Merengue Mambo Club Set Live</div>
-            <div class="media-meta">DJ Jhoan Rodríguez • 18:40 min</div>
-            <button class="btn-download-main" onclick="abrirOpcionesDescarga('Merengue Mambo Club Set', 'https://example.com/audio2.mp3')">📥 Descargar (MP3 / MP4)</button>
+            <div class="media-title">Modo Descarga Directa Activado</div>
+            <div class="media-meta">Pega cualquier enlace de YouTube o Facebook arriba para comenzar</div>
         </div>
     </div>
 
-    <!-- PANTALLA DESCARGAS -->
     <div id="tab-descargas" class="content">
         <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblDescargas">Centro de Descargas</h4>
         <div id="listaDescargas">
@@ -310,7 +65,7 @@
         </div>
     </div>
 
-    <!-- MODAL VENTANA FLOTANTE DE CALIDADES -->
+    <!-- MODAL POPUP -->
     <div id="downloadModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -318,49 +73,35 @@
                 <button class="close-btn" onclick="cerrarModal()">&times;</button>
             </div>
 
-            <!-- FORMATOS AUDIO (MP3) -->
             <div class="section-label">🎵 Formato Audio (Guardar en: /DJ Tube Audio)</div>
             <div class="options-grid">
-                <button class="quality-btn" onclick="procesarDescarga('mp3', '128k', 'audio')">MP3 128kbps <span>Baja</span></button>
-                <button class="quality-btn" onclick="procesarDescarga('mp3', '256k', 'audio')">MP3 256kbps <span>Media</span></button>
-                <button class="quality-btn" style="grid-column: span 2; border-color: #00ff66;" onclick="procesarDescarga('mp3', '320k', 'audio')">MP3 320kbps <span>Alta Calidad HD</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp3', '128k', 'audio')">MP3 128kbps</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp3', '256k', 'audio')">MP3 256kbps</button>
+                <button class="quality-btn" style="grid-column: span 2; border-color: #00ff66;" onclick="procesarDescarga('mp3', '320k', 'audio')">MP3 320kbps HD</button>
             </div>
 
-            <!-- FORMATOS VIDEO (MP4) -->
             <div class="section-label">🎬 Formato Video (Guardar en: /DJ Tube Video)</div>
             <div class="options-grid">
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '360p', 'video')">MP4 360p <span>Baja</span></button>
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '480p', 'video')">MP4 480p <span>Normal</span></button>
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '720p', 'video')">MP4 720p <span>HD</span></button>
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '1080p', 'video')">MP4 1080p <span>Full HD</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '360', 'video')">MP4 360p</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '480', 'video')">MP4 480p</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '720', 'video')">MP4 720p HD</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '1080', 'video')">MP4 1080p Full HD</button>
             </div>
         </div>
     </div>
 
-    <!-- BARRA INFERIOR -->
     <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('inicio', this)">
-            <span>🏠</span>
-            <label id="navHome">Inicio</label>
-        </button>
-        <button class="nav-item" onclick="switchTab('descargas', this)">
-            <span>📥</span>
-            <label id="navDown">Descargas</label>
-        </button>
+        <button class="nav-item active" onclick="switchTab('inicio', this)"><span>🏠</span><label id="navHome">Inicio</label></button>
+        <button class="nav-item" onclick="switchTab('descargas', this)"><span>📥</span><label id="navDown">Descargas</label></button>
     </div>
 
     <script>
-        let currentTitle = '';
+        let currentTitle = 'Audio/Video DJ Tube';
         let currentUrl = '';
-        let currentLang = 'es';
 
-        // Capturar enlaces que vienen desde Facebook / YouTube al presionar Compartir
         function capturarEnlaceCompartido(url) {
             document.getElementById('searchInput').value = url;
-            document.getElementById('sharedUrlText').innerText = url;
-            document.getElementById('sharedBanner').style.display = 'block';
-            switchTab('inicio', document.querySelectorAll('.nav-item')[0]);
-            abrirOpcionesDescarga('Enlace Compartido', url);
+            abrirOpcionesDescarga('Contenido Compartido', url);
         }
 
         function abrirOpcionesDescarga(titulo, url) {
@@ -374,28 +115,44 @@
             document.getElementById('downloadModal').style.display = 'none';
         }
 
-        function procesarDescarga(extension, calidad, tipo) {
+        async function procesarDescarga(extension, calidad, tipo) {
             cerrarModal();
-            const tituloCompleto = currentTitle + ' (' + calidad + ')';
-            
-            // Llamar a la función nativa en Android
-            if (window.AndroidInterface && window.AndroidInterface.descargarArchivo) {
-                window.AndroidInterface.descargarArchivo(currentUrl, tituloCompleto, extension, tipo);
-            } else {
-                alert('Iniciando descarga: ' + tituloCompleto + '\nUbicación: Download/DJ Tube ' + (tipo === 'audio' ? 'Audio' : 'Video'));
+            const status = document.getElementById('statusText');
+            status.style.display = 'block';
+            status.innerText = '⚡ Convirtiendo enlace multimedia...';
+
+            try {
+                // Petición a servidor extractor
+                const res = await fetch('https://api.cobalt.tools/api/json', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        url: currentUrl,
+                        downloadMode: tipo === 'audio' ? 'audio' : 'auto',
+                        audioFormat: 'mp3',
+                        videoQuality: calidad
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.url) {
+                    status.innerText = '✅ Descarga iniciada en tu teléfono...';
+                    const tituloFinal = 'DJ_Tube_' + Date.now();
+                    
+                    if (window.AndroidInterface && window.AndroidInterface.descargarArchivo) {
+                        window.AndroidInterface.descargarArchivo(data.url, tituloFinal, extension, tipo);
+                    } else {
+                        window.location.href = data.url;
+                    }
+                } else {
+                    status.innerText = '⚠️ No se pudo extraer la descarga. Revisa el enlace.';
+                }
+            } catch (err) {
+                status.innerText = '⚠️ Error conectando al servidor de conversión.';
             }
 
-            // Registrar en la lista de descargas
-            const lista = document.getElementById('listaDescargas');
-            if(document.getElementById('lblSinDescargas')) {
-                document.getElementById('lblSinDescargas').remove();
-            }
-            lista.innerHTML += `
-                <div class="media-card">
-                    <div class="media-title">${tituloCompleto}</div>
-                    <div class="media-meta" style="color: #00ff66;">Guardando en Download/DJ Tube ${tipo === 'audio' ? 'Audio' : 'Video'}...</div>
-                </div>
-            `;
+            setTimeout(() => { status.style.display = 'none'; }, 5000);
         }
 
         function switchTab(tabId, btn) {
@@ -408,38 +165,8 @@
         function ejecutarBusqueda() {
             const query = document.getElementById('searchInput').value;
             if(query) {
-                abrirOpcionesDescarga('Resultado: ' + query, query);
+                abrirOpcionesDescarga('Enlace multimedia', query);
             }
-        }
-
-        const translations = {
-            es: {
-                placeholder: "Pega enlace de Facebook, YouTube o busca...",
-                btnSearch: "Buscar",
-                lblResultados: "Explorar Contenido",
-                lblDescargas: "Centro de Descargas",
-                navHome: "Inicio",
-                navDown: "Descargas"
-            },
-            en: {
-                placeholder: "Paste Facebook, YouTube link or search...",
-                btnSearch: "Search",
-                lblResultados: "Explore Content",
-                lblDescargas: "Download Center",
-                navHome: "Home",
-                navDown: "Downloads"
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = (currentLang === 'es') ? 'en' : 'es';
-            const t = translations[currentLang];
-            document.getElementById('searchInput').placeholder = t.placeholder;
-            document.getElementById('btnSearch').innerText = t.btnSearch;
-            document.getElementById('lblResultados').innerText = t.lblResultados;
-            document.getElementById('lblDescargas').innerText = t.lblDescargas;
-            document.getElementById('navHome').innerText = t.navHome;
-            document.getElementById('navDown').innerText = t.navDown;
         }
     </script>
 </body>
