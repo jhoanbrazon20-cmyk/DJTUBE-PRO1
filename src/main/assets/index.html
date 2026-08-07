@@ -3,51 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ TUBE</title>
+    <title>DJ TUBE PRO</title>
     <style>
         body {
             margin: 0;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            text-align: center;
+            padding: 15px;
+            font-family: 'SF Pro Display', 'Segoe UI', sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         .header {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 1px solid #333;
         }
+
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
         .lang-btn {
-            background-color: #ff0055;
-            color: white;
+            background-color: #f5f5f7;
+            color: #1a1a1a;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
         }
-        .card {
-            background-color: #1e1e1e;
+
+        .welcome-card {
+            width: 90%;
+            background-color: #2c2c2e;
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        /* Nueva Sección de Tracks */
+        .tracks-section {
+            width: 90%;
             margin-top: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        .track-item {
+            background-color: #2c2c2e;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-name {
+            font-weight: 600;
+        }
+
+        .track-artist {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .play-btn {
+            background-color: #e91e63; /* Color vibrante para DJ */
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h2>DJ TUBE</h2>
-        <button class="lang-btn" onclick="toggleLanguage()" id="langToggle">EN / ES</button>
+        <div class="app-title">DJ TUBE PRO</div>
+        <button class="lang-btn" onclick="toggleLanguage()" id="langToggle">EN/ES</button>
     </div>
 
-    <div class="card">
-        <h3 id="titleText">Bienvenido a DJ TUBE</h3>
+    <div class="welcome-card">
+        <h3 id="titleText">Bienvenido a DJ TUBE PRO</h3>
         <p id="descText">Tu plataforma multimedia para mezclas y reproducciones.</p>
+    </div>
+
+    <!-- Sección de Tracks Añadida -->
+    <div class="tracks-section">
+        <div class="section-title" id="tracksSectionTitle">Tus Pistas (Example Data)</div>
+        
+        <div class="track-item">
+            <div class="track-info">
+                <span class="track-name">Groove Beat 1</span>
+                <span class="track-artist">Artist A</span>
+            </div>
+            <button class="play-btn">▶</button>
+        </div>
+
+        <div class="track-item">
+            <div class="track-info">
+                <span class="track-name">Latin Mix 2</span>
+                <span class="track-artist">Artist B</span>
+            </div>
+            <button class="play-btn">▶</button>
+        </div>
+
+        <div class="track-item">
+            <div class="track-info">
+                <span class="track-name">Synth Wave 3</span>
+                <span class="track-artist">Artist C</span>
+            </div>
+            <button class="play-btn">▶</button>
+        </div>
     </div>
 
     <script>
@@ -55,14 +153,16 @@
 
         const translations = {
             es: {
-                title: "Bienvenido a DJ TUBE",
+                title: "Bienvenido a DJ TUBE PRO",
                 desc: "Tu plataforma multimedia para mezclas y reproducciones.",
-                btn: "English 🇺🇸"
+                btn: "English 🇺🇸",
+                tracksTitle: "Tus Pistas (Example Data)"
             },
             en: {
-                title: "Welcome to DJ TUBE",
+                title: "Welcome to DJ TUBE PRO",
                 desc: "Your multimedia platform for mixing and playback.",
-                btn: "Español 🇪🇸"
+                btn: "Español 🇪🇸",
+                tracksTitle: "Your Tracks (Example Data)"
             }
         };
 
@@ -71,6 +171,7 @@
             document.getElementById('titleText').innerText = translations[currentLang].title;
             document.getElementById('descText').innerText = translations[currentLang].desc;
             document.getElementById('langToggle').innerText = translations[currentLang].btn;
+            document.getElementById('tracksSectionTitle').innerText = translations[currentLang].tracksTitle;
         }
     </script>
 </body>
