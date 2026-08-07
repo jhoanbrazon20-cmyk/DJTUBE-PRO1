@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application' version '8.1.1' apply true
+    id 'com.android.application'
 }
 
 android {
@@ -8,9 +8,15 @@ android {
 
     defaultConfig {
         applicationId "com.djtube.pro"
-        minSdk 24
+        minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
     }
 }
