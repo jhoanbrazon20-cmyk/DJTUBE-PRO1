@@ -18,7 +18,6 @@
             padding-bottom: 80px;
         }
 
-        /* Top Bar */
         .header {
             display: flex;
             justify-content: space-between;
@@ -36,7 +35,6 @@
             font-weight: 900;
             color: #00ff66;
             text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
-            letter-spacing: 1px;
         }
 
         .lang-btn {
@@ -50,7 +48,6 @@
             cursor: pointer;
         }
 
-        /* Search Section */
         .search-area {
             padding: 15px;
             background: #0a0a0a;
@@ -84,33 +81,6 @@
             cursor: pointer;
         }
 
-        /* Quick Platforms / Hot Links */
-        .quick-links {
-            display: flex;
-            gap: 10px;
-            padding: 10px 15px;
-            overflow-x: auto;
-            background: #080808;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .chip {
-            background: #121212;
-            color: #ccc;
-            border: 1px solid #222;
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-
-        .chip.active {
-            border-color: #00ff66;
-            color: #00ff66;
-            background: #00ff6615;
-        }
-
-        /* Content Area */
         .content {
             padding: 15px;
             display: none;
@@ -120,20 +90,15 @@
             display: block;
         }
 
-        /* Media Card */
         .media-card {
             background: #111111;
             border-radius: 12px;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 12px;
             border: 1px solid #222;
             display: flex;
             flex-direction: column;
             gap: 10px;
-        }
-
-        .media-card:hover {
-            border-color: #00ff66;
         }
 
         .media-title {
@@ -147,49 +112,105 @@
             color: #888;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-neon {
-            flex: 1;
+        .btn-download-main {
             background: #00ff66;
-            color: #000000;
+            color: #000;
             border: none;
             padding: 10px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             cursor: pointer;
             text-align: center;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
         }
 
-        .btn-outline {
-            flex: 1;
-            background: transparent;
+        /* MODAL DE CALIDADES ESTILO NATUBER */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            width: 100%;
+            background: #121212;
+            border-top: 2px solid #00ff66;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 -5px 25px rgba(0, 255, 102, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 1rem;
+            font-weight: bold;
             color: #00ff66;
-            border: 1px solid #00ff66;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #aaa;
+            margin: 12px 0 8px 0;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quality-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
             padding: 10px;
             border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
-            text-align: center;
         }
 
-        /* Shared Link Alert Banner */
-        .shared-banner {
-            display: none;
-            background: #00ff6622;
-            border: 1px solid #00ff66;
-            padding: 12px;
-            border-radius: 10px;
-            margin: 10px 15px;
-            font-size: 0.85rem;
+        .quality-btn:hover, .quality-btn:active {
+            border-color: #00ff66;
+            color: #00ff66;
+            background: #00ff6610;
         }
 
-        /* Bottom Nav Bar */
+        .quality-btn span {
+            font-size: 0.7rem;
+            color: #777;
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -219,28 +240,15 @@
         .nav-item.active {
             color: #00ff66;
         }
-
-        .nav-item span {
-            font-size: 1.2rem;
-            margin-bottom: 2px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <div class="header">
         <div class="brand">DJ TUBE</div>
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN / ES</button>
     </div>
 
-    <!-- Banner de Enlace Recibido (Facebook/YouTube) -->
-    <div id="sharedBanner" class="shared-banner">
-        📥 <strong>Enlace detectado:</strong>
-        <p id="sharedUrlText" style="word-break: break-all; margin-top: 4px; color: #00ff66;"></p>
-    </div>
-
-    <!-- Buscador Principal -->
     <div class="search-area">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Pega enlace de Facebook, YouTube o busca...">
@@ -248,59 +256,59 @@
         </div>
     </div>
 
-    <!-- Categorías -->
-    <div class="quick-links">
-        <div class="chip active">🔥 Tendencias</div>
-        <div class="chip">🎵 Música / DJ</div>
-        <div class="chip">📘 Facebook Videos</div>
-        <div class="chip">⚡ MP3 Fast</div>
-    </div>
-
-    <!-- TAB 1: INICIO -->
+    <!-- PANTALLA PRINCIPAL -->
     <div id="tab-inicio" class="content active">
         <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblResultados">Explorar Contenido</h4>
 
         <div class="media-card">
             <div class="media-title">Salsa Baúl Mix 2026 - Edición Especial</div>
-            <div class="media-meta">DJ Jhoan Rodríguez • 25:14 • 320 kbps</div>
-            <div class="action-buttons">
-                <button class="btn-neon" onclick="descargarAudio('Salsa Baúl Mix 2026')">⚡ MP3 (Audio)</button>
-                <button class="btn-outline" onclick="descargarVideo('Salsa Baúl Mix 2026')">🎬 MP4 (Video)</button>
-            </div>
+            <div class="media-meta">DJ Jhoan Rodríguez • 25:14 min</div>
+            <button class="btn-download-main" onclick="abrirOpcionesDescarga('Salsa Baúl Mix 2026', 'https://example.com/audio.mp3')">📥 Descargar (MP3 / MP4)</button>
         </div>
 
         <div class="media-card">
             <div class="media-title">Merengue Mambo Club Set Live</div>
-            <div class="media-meta">DJ Jhoan Rodríguez • 18:40 • 320 kbps</div>
-            <div class="action-buttons">
-                <button class="btn-neon" onclick="descargarAudio('Merengue Mambo Set')">⚡ MP3 (Audio)</button>
-                <button class="btn-outline" onclick="descargarVideo('Merengue Mambo Set')">🎬 MP4 (Video)</button>
+            <div class="media-meta">DJ Jhoan Rodríguez • 18:40 min</div>
+            <button class="btn-download-main" onclick="abrirOpcionesDescarga('Merengue Mambo Club Set', 'https://example.com/audio2.mp3')">📥 Descargar (MP3 / MP4)</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA DESCARGAS -->
+    <div id="tab-descargas" class="content">
+        <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblDescargas">Centro de Descargas</h4>
+        <div id="listaDescargas">
+            <p style="color: #555; font-size: 0.85rem;" id="lblSinDescargas">No hay descargas en curso.</p>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP DE CALIDADES -->
+    <div id="downloadModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTrackTitle">Opciones de Descarga</div>
+                <button class="close-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+
+            <!-- AUDIOS (MP3) -->
+            <div class="section-label">🎵 Formato Audio (Guardar en: /DJ Tube Audio)</div>
+            <div class="options-grid">
+                <button class="quality-btn" onclick="procesarDescarga('mp3', '128k', 'audio')">MP3 128kbps <span>Baja</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp3', '256k', 'audio')">MP3 256kbps <span>Media</span></button>
+                <button class="quality-btn" style="grid-column: span 2; border-color: #00ff66;" onclick="procesarDescarga('mp3', '320k', 'audio')">MP3 320kbps <span>Alta Calidad HD</span></button>
+            </div>
+
+            <!-- VIDEOS (MP4) -->
+            <div class="section-label">🎬 Formato Video (Guardar en: /DJ Tube Video)</div>
+            <div class="options-grid">
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '360p', 'video')">MP4 360p <span>Baja</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '480p', 'video')">MP4 480p <span>Normal</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '720p', 'video')">MP4 720p <span>HD</span></button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '1080p', 'video')">MP4 1080p <span>Full HD</span></button>
             </div>
         </div>
     </div>
 
-    <!-- TAB 2: DESCARGAS -->
-    <div id="tab-descargas" class="content">
-        <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblDescargas">Centro de Descargas</h4>
-        <div id="listaDescargas">
-            <p style="color: #555; font-size: 0.85rem;" id="lblSinDescargas">No hay descargas activas.</p>
-        </div>
-    </div>
-
-    <!-- TAB 3: AJUSTES -->
-    <div id="tab-ajustes" class="content">
-        <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblAjustes">Configuración</h4>
-        <div class="media-card">
-            <div class="media-title">Formato Predeterminado</div>
-            <div class="media-meta">MP3 High Quality (320 kbps)</div>
-        </div>
-        <div class="media-card">
-            <div class="media-title">Ubicación de Almacenamiento</div>
-            <div class="media-meta">/Storage/Emulated/0/DJTube/</div>
-        </div>
-    </div>
-
-    <!-- Navegación Inferior -->
+    <!-- MENU NAVEGACIÓN -->
     <div class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('inicio', this)">
             <span>🏠</span>
@@ -310,57 +318,60 @@
             <span>📥</span>
             <label id="navDown">Descargas</label>
         </button>
-        <button class="nav-item" onclick="switchTab('ajustes', this)">
-            <span>⚙️</span>
-            <label id="navSettings">Ajustes</label>
-        </button>
     </div>
 
     <script>
+        let currentTitle = '';
+        let currentUrl = '';
         let currentLang = 'es';
 
-        // Recibir enlace de Facebook/YouTube al compartir desde otra app
-        function capturarEnlaceCompartido(url) {
-            document.getElementById('searchInput').value = url;
-            document.getElementById('sharedUrlText').innerText = url;
-            document.getElementById('sharedBanner').style.display = 'block';
-            switchTab('inicio', document.querySelectorAll('.nav-item')[0]);
+        function abrirOpcionesDescarga(titulo, url) {
+            currentTitle = titulo;
+            currentUrl = url;
+            document.getElementById('modalTrackTitle').innerText = titulo;
+            document.getElementById('downloadModal').style.display = 'flex';
         }
 
-        function ejecutarBusqueda() {
-            const query = document.getElementById('searchInput').value;
-            if(query) {
-                alert('Procesando enlace/búsqueda: ' + query);
+        function cerrarModal() {
+            document.getElementById('downloadModal').style.display = 'none';
+        }
+
+        function procesarDescarga(extension, calidad, tipo) {
+            cerrarModal();
+            const tituloCompleto = currentTitle + ' (' + calidad + ')';
+            
+            // Invocar el gestor de descargas de Android en la carpeta correspondiente
+            if (window.AndroidInterface && window.AndroidInterface.descargarArchivo) {
+                window.AndroidInterface.descargarArchivo(currentUrl, tituloCompleto, extension, tipo);
+            } else {
+                alert('Iniciando descarga: ' + tituloCompleto + ' en /DJ Tube ' + (tipo === 'audio' ? 'Audio' : 'Video'));
             }
+
+            // Registrar elemento en la pestaña de descargas de la app
+            const lista = document.getElementById('listaDescargas');
+            if(document.getElementById('lblSinDescargas')) {
+                document.getElementById('lblSinDescargas').remove();
+            }
+            lista.innerHTML += `
+                <div class="media-card">
+                    <div class="media-title">${tituloCompleto}</div>
+                    <div class="media-meta" style="color: #00ff66;">Guardando en Download/DJ Tube ${tipo === 'audio' ? 'Audio' : 'Video'}...</div>
+                </div>
+            `;
         }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
             document.getElementById('tab-' + tabId).classList.add('active');
             btn.classList.add('active');
         }
 
-        function descargarAudio(titulo) {
-            alert('Iniciando descarga de Audio MP3: ' + titulo);
-            agregarADescargas(titulo + ' (Audio MP3)');
-        }
-
-        function descargarVideo(titulo) {
-            alert('Iniciando descarga de Video MP4: ' + titulo);
-            agregarADescargas(titulo + ' (Video MP4)');
-        }
-
-        function agregarADescargas(nombre) {
-            const lista = document.getElementById('listaDescargas');
-            const item = document.createElement('div');
-            item.className = 'media-card';
-            item.innerHTML = `
-                <div class="media-title">${nombre}</div>
-                <div class="media-meta" style="color: #00ff66;">✓ Descargado exitosamente</div>
-            `;
-            lista.appendChild(item);
+        function ejecutarBusqueda() {
+            const query = document.getElementById('searchInput').value;
+            if(query) {
+                abrirOpcionesDescarga('Resultado: ' + query, query);
+            }
         }
 
         const translations = {
@@ -369,22 +380,16 @@
                 btnSearch: "Buscar",
                 lblResultados: "Explorar Contenido",
                 lblDescargas: "Centro de Descargas",
-                lblSinDescargas: "No hay descargas activas.",
-                lblAjustes: "Configuración",
                 navHome: "Inicio",
-                navDown: "Descargas",
-                navSettings: "Ajustes"
+                navDown: "Descargas"
             },
             en: {
                 placeholder: "Paste Facebook, YouTube link or search...",
                 btnSearch: "Search",
                 lblResultados: "Explore Content",
                 lblDescargas: "Download Center",
-                lblSinDescargas: "No active downloads.",
-                lblAjustes: "Settings",
                 navHome: "Home",
-                navDown: "Downloads",
-                navSettings: "Settings"
+                navDown: "Downloads"
             }
         };
 
@@ -395,11 +400,8 @@
             document.getElementById('btnSearch').innerText = t.btnSearch;
             document.getElementById('lblResultados').innerText = t.lblResultados;
             document.getElementById('lblDescargas').innerText = t.lblDescargas;
-            document.getElementById('lblSinDescargas').innerText = t.lblSinDescargas;
-            document.getElementById('lblAjustes').innerText = t.lblAjustes;
             document.getElementById('navHome').innerText = t.navHome;
             document.getElementById('navDown').innerText = t.navDown;
-            document.getElementById('navSettings').innerText = t.navSettings;
         }
     </script>
 </body>
