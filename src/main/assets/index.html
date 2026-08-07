@@ -5,173 +5,358 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJ TUBE PRO</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 15px;
-            font-family: 'SF Pro Display', 'Segoe UI', sans-serif;
-            background-color: #1a1a1a;
-            color: #f5f5f7;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .header {
-            width: 100%;
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            padding-bottom: 120px;
+        }
+
+        /* Encabezado Superior */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
+            padding: 15px;
+            background-color: #181818;
+            border-bottom: 1px solid #282828;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .app-title {
+        .logo {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: bold;
+            color: #ff0055;
         }
 
         .lang-btn {
-            background-color: #f5f5f7;
-            color: #1a1a1a;
-            border: none;
+            background: #282828;
+            color: #fff;
+            border: 1px solid #444;
             padding: 6px 12px;
-            border-radius: 15px;
+            border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
             cursor: pointer;
         }
 
-        .welcome-card {
-            width: 90%;
-            background-color: #2c2c2e;
-            border-radius: 12px;
+        /* Barra de Búsqueda */
+        .search-container {
             padding: 15px;
-            margin-top: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            text-align: center;
         }
 
-        /* Nueva Sección de Tracks */
-        .tracks-section {
-            width: 90%;
-            margin-top: 20px;
+        .search-box {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            background-color: #222;
+            border-radius: 25px;
+            padding: 5px 15px;
+            border: 1px solid #333;
         }
 
-        .section-title {
+        .search-box input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: #ff0055;
             font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #aaa;
+            cursor: pointer;
         }
 
-        .track-item {
-            background-color: #2c2c2e;
-            border-radius: 8px;
-            padding: 10px;
+        /* Contenido por Pantallas */
+        .tab-content {
+            display: none;
+            padding: 15px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Tarjetas de Pistas */
+        .card {
+            background-color: #181818;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            justify-content: space-between;
+            border: 1px solid #282828;
         }
 
-        .track-info {
-            display: flex;
-            flex-direction: column;
+        .card-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
         }
 
-        .track-name {
-            font-weight: 600;
-        }
-
-        .track-artist {
+        .card-info p {
             font-size: 0.8rem;
             color: #aaa;
         }
 
-        .play-btn {
-            background-color: #e91e63; /* Color vibrante para DJ */
+        .btn-action {
+            background-color: #ff0055;
             color: white;
             border: none;
-            padding: 8px;
-            border-radius: 50%;
-            font-size: 1rem;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
             cursor: pointer;
-            width: 32px;
-            height: 32px;
+        }
+
+        /* Barra de Reproducción Inferior */
+        .player-bar {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #1f1f1f;
+            border-top: 1px solid #333;
+            padding: 10px 15px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;
+            z-index: 99;
+        }
+
+        .player-info h5 {
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .player-info p {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .player-controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Menú de Navegación Inferior */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #121212;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: #777;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #ff0055;
+        }
+
+        .nav-item span {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="app-title">DJ TUBE PRO</div>
-        <button class="lang-btn" onclick="toggleLanguage()" id="langToggle">EN/ES</button>
+    <!-- Encabezado -->
+    <div class="top-bar">
+        <div class="logo">DJ TUBE PRO</div>
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN / ES</button>
     </div>
 
-    <div class="welcome-card">
-        <h3 id="titleText">Bienvenido a DJ TUBE PRO</h3>
-        <p id="descText">Tu plataforma multimedia para mezclas y reproducciones.</p>
+    <!-- Barra de Búsqueda -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar mezclas, pistas, videos...">
+            <button onclick="buscar()">🔍</button>
+        </div>
     </div>
 
-    <!-- Sección de Tracks Añadida -->
-    <div class="tracks-section">
-        <div class="section-title" id="tracksSectionTitle">Tus Pistas (Example Data)</div>
+    <!-- PANTALLA 1: INICIO -->
+    <div id="tab-inicio" class="tab-content active">
+        <h3 style="margin-bottom: 12px;" id="lblInicio">Mezclas Destacadas</h3>
         
-        <div class="track-item">
-            <div class="track-info">
-                <span class="track-name">Groove Beat 1</span>
-                <span class="track-artist">Artist A</span>
+        <div class="card">
+            <div class="card-info">
+                <h4>Salsa Baúl Mix 2026</h4>
+                <p>DJ Jhoan Rodríguez • 25 min</p>
             </div>
-            <button class="play-btn">▶</button>
+            <button class="btn-action" onclick="descargar('Salsa Baúl Mix 2026')">📥 Descargar</button>
         </div>
 
-        <div class="track-item">
-            <div class="track-info">
-                <span class="track-name">Latin Mix 2</span>
-                <span class="track-artist">Artist B</span>
+        <div class="card">
+            <div class="card-info">
+                <h4>Merengue Mambo Club Set</h4>
+                <p>DJ Jhoan Rodríguez • 18 min</p>
             </div>
-            <button class="play-btn">▶</button>
+            <button class="btn-action" onclick="descargar('Merengue Mambo Club Set')">📥 Descargar</button>
         </div>
+    </div>
 
-        <div class="track-item">
-            <div class="track-info">
-                <span class="track-name">Synth Wave 3</span>
-                <span class="track-artist">Artist C</span>
-            </div>
-            <button class="play-btn">▶</button>
+    <!-- PANTALLA 2: DESCARGAS -->
+    <div id="tab-descargas" class="tab-content">
+        <h3 style="margin-bottom: 12px;" id="lblDescargas">Centro de Descargas</h3>
+        <div id="lista-descargas">
+            <p style="color: #666; font-size: 0.9rem;" id="lblNoDescargas">No hay descargas activas en este momento.</p>
         </div>
+    </div>
+
+    <!-- PANTALLA 3: MENÚ / AJUSTES -->
+    <div id="tab-menu" class="tab-content">
+        <h3 style="margin-bottom: 12px;" id="lblAjustes">Menú & Configuración</h3>
+        <div class="card">
+            <div class="card-info">
+                <h4>Calidad de Audio</h4>
+                <p>Alta (320 kbps)</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-info">
+                <h4>Carpeta de Almacenamiento</h4>
+                <p>/Storage/DJTube/Downloads</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reproductor Inferior -->
+    <div class="player-bar">
+        <div class="player-info">
+            <h5 id="playerTrack">Salsa Baúl Mix 2026</h5>
+            <p id="playerArtist">Listo para reproducir</p>
+        </div>
+        <div class="player-controls">
+            <button onclick="togglePlay()" id="btnPlay">▶</button>
+        </div>
+    </div>
+
+    <!-- Menú Inferior de Navegación -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('inicio', this)">
+            <span>🏠</span>
+            <label id="navHome">Inicio</label>
+        </button>
+        <button class="nav-item" onclick="switchTab('descargas', this)">
+            <span>📥</span>
+            <label id="navDown">Descargas</label>
+        </button>
+        <button class="nav-item" onclick="switchTab('menu', this)">
+            <span>⚙️</span>
+            <label id="navMenu">Menú</label>
+        </button>
     </div>
 
     <script>
+        let isPlaying = false;
         let currentLang = 'es';
 
+        // Lógica de cambio de pestañas del menú
+        function switchTab(tabName, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            el.classList.add('active');
+        }
+
+        // Lógica del reproductor
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('btnPlay').innerText = isPlaying ? '⏸' : '▶';
+        }
+
+        // Simulación de descarga
+        function descargar(titulo) {
+            alert('Iniciando descarga de: ' + titulo);
+            const contenedor = document.getElementById('lista-descargas');
+            contenedor.innerHTML += `
+                <div class="card">
+                    <div class="card-info">
+                        <h4>${titulo}</h4>
+                        <p>Completado • MP3 320kbps</p>
+                    </div>
+                    <span style="color: #00ff66; font-size: 0.8rem;">✓ Listo</span>
+                </div>
+            `;
+        }
+
+        function buscar() {
+            const query = document.getElementById('searchInput').value;
+            if(query) {
+                alert('Buscando: ' + query);
+            }
+        }
+
+        // Traducción de la interfaz
         const translations = {
             es: {
-                title: "Bienvenido a DJ TUBE PRO",
-                desc: "Tu plataforma multimedia para mezclas y reproducciones.",
-                btn: "English 🇺🇸",
-                tracksTitle: "Tus Pistas (Example Data)"
+                search: "Buscar mezclas, pistas, videos...",
+                inicio: "Mezclas Destacadas",
+                descargas: "Centro de Descargas",
+                noDescargas: "No hay descargas activas en este momento.",
+                ajustes: "Menú & Configuración",
+                navHome: "Inicio",
+                navDown: "Descargas",
+                navMenu: "Menú"
             },
             en: {
-                title: "Welcome to DJ TUBE PRO",
-                desc: "Your multimedia platform for mixing and playback.",
-                btn: "Español 🇪🇸",
-                tracksTitle: "Your Tracks (Example Data)"
+                search: "Search mixes, tracks, videos...",
+                inicio: "Featured Mixes",
+                descargas: "Download Center",
+                noDescargas: "No active downloads at the moment.",
+                ajustes: "Menu & Settings",
+                navHome: "Home",
+                navDown: "Downloads",
+                navMenu: "Menu"
             }
         };
 
         function toggleLanguage() {
             currentLang = (currentLang === 'es') ? 'en' : 'es';
-            document.getElementById('titleText').innerText = translations[currentLang].title;
-            document.getElementById('descText').innerText = translations[currentLang].desc;
-            document.getElementById('langToggle').innerText = translations[currentLang].btn;
-            document.getElementById('tracksSectionTitle').innerText = translations[currentLang].tracksTitle;
+            const t = translations[currentLang];
+            
+            document.getElementById('searchInput').placeholder = t.search;
+            document.getElementById('lblInicio').innerText = t.inicio;
+            document.getElementById('lblDescargas').innerText = t.descargas;
+            document.getElementById('lblNoDescargas').innerText = t.noDescargas;
+            document.getElementById('lblAjustes').innerText = t.ajustes;
+            document.getElementById('navHome').innerText = t.navHome;
+            document.getElementById('navDown').innerText = t.navDown;
+            document.getElementById('navMenu').innerText = t.navMenu;
         }
     </script>
 </body>
