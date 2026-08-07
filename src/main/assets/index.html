@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ TUBE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .lang-btn {
+            background-color: #ff0055;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
 
+    <div class="header">
+        <h2>DJ TUBE</h2>
+        <button class="lang-btn" onclick="toggleLanguage()" id="langToggle">EN / ES</button>
+    </div>
+
+    <div class="card">
+        <h3 id="titleText">Bienvenido a DJ TUBE</h3>
+        <p id="descText">Tu plataforma multimedia para mezclas y reproducciones.</p>
+    </div>
+
+    <script>
+        let currentLang = 'es';
+
+        const translations = {
+            es: {
+                title: "Bienvenido a DJ TUBE",
+                desc: "Tu plataforma multimedia para mezclas y reproducciones.",
+                btn: "English 🇺🇸"
+            },
+            en: {
+                title: "Welcome to DJ TUBE",
+                desc: "Your multimedia platform for mixing and playback.",
+                btn: "Español 🇪🇸"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = (currentLang === 'es') ? 'en' : 'es';
+            document.getElementById('titleText').innerText = translations[currentLang].title;
+            document.getElementById('descText').innerText = translations[currentLang].desc;
+            document.getElementById('langToggle').innerText = translations[currentLang].btn;
+        }
+    </script>
+</body>
+</html>
