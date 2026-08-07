@@ -1,13 +1,13 @@
 package com.djtube.pro;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebChromeClient;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private WebView webView;
 
     @Override
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         webView = new WebView(this);
         WebSettings settings = webView.getSettings();
         
-        // Habilitar funciones avanzadas
+        // Habilitar soporte web completo
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
