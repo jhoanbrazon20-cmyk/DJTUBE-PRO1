@@ -9,63 +9,54 @@
         body { background-color: #050505; color: #ffffff; padding-bottom: 80px; }
         .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background-color: #0a0a0a; border-bottom: 2px solid #00ff66; position: sticky; top: 0; z-index: 100; }
         .brand { font-size: 1.3rem; font-weight: 900; color: #00ff66; text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
-        .lang-btn { background: #111; color: #00ff66; border: 1px solid #00ff66; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
         .search-area { padding: 15px; background: #0a0a0a; }
         .search-box { display: flex; background-color: #141414; border-radius: 25px; padding: 4px 6px 4px 15px; border: 1px solid #00ff66; box-shadow: 0 0 8px rgba(0, 255, 102, 0.15); }
         .search-box input { width: 100%; background: transparent; border: none; color: #ffffff; font-size: 0.9rem; outline: none; }
         .search-box button { background: #00ff66; border: none; color: #000; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        .content { padding: 15px; display: none; }
-        .content.active { display: block; }
-        .media-card { background: #111111; border-radius: 12px; padding: 14px; margin-bottom: 12px; border: 1px solid #222; display: flex; flex-direction: column; gap: 10px; }
-        .media-title { font-size: 0.95rem; font-weight: bold; color: #fff; }
+        .content { padding: 15px; }
+        .results-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .media-card { background: #111111; border-radius: 12px; padding: 12px; border: 1px solid #222; display: flex; gap: 12px; align-items: center; }
+        .media-thumb { width: 90px; height: 60px; border-radius: 8px; object-fit: cover; background: #222; }
+        .media-info { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .media-title { font-size: 0.85rem; font-weight: bold; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .media-meta { font-size: 0.75rem; color: #888; }
-        .btn-download-main { background: #00ff66; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; text-align: center; }
+        .btn-down { background: #00ff66; color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.75rem; cursor: pointer; }
+        .loading-status { display: none; color: #00ff66; font-size: 0.85rem; text-align: center; margin-top: 10px; font-weight: bold; }
+        
+        /* MODAL POPUP */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 200; justify-content: center; align-items: flex-end; }
         .modal-content { width: 100%; background: #121212; border-top: 2px solid #00ff66; border-radius: 20px 20px 0 0; padding: 20px; max-height: 80vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .modal-title { font-size: 1rem; font-weight: bold; color: #00ff66; }
+        .modal-title { font-size: 0.95rem; font-weight: bold; color: #00ff66; }
         .close-btn { background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
         .section-label { font-size: 0.85rem; font-weight: bold; color: #aaa; margin: 12px 0 8px 0; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .quality-btn { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .quality-btn { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; text-align: center; }
         .quality-btn:hover { border-color: #00ff66; color: #00ff66; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0a0a0a; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
-        .nav-item { background: none; border: none; color: #666; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-        .nav-item.active { color: #00ff66; }
-        .loading-status { display: none; color: #00ff66; font-size: 0.85rem; text-align: center; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <div class="brand">DJ TUBE</div>
-        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN / ES</button>
     </div>
 
     <div class="search-area">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Pega enlace de Facebook, YouTube o busca...">
-            <button onclick="ejecutarBusqueda()" id="btnSearch">Buscar</button>
+            <input type="text" id="searchInput" placeholder="Escribe canción, artista o pega enlace...">
+            <button onclick="buscarOProcesar()" id="btnSearch">Buscar</button>
         </div>
-        <div id="statusText" class="loading-status">🔄 Procesando enlace multimedia...</div>
+        <div id="statusText" class="loading-status">🔄 Buscando contenido...</div>
     </div>
 
-    <div id="tab-inicio" class="content active">
-        <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblResultados">Explorar Contenido</h4>
-        <div class="media-card">
-            <div class="media-title">Modo Descarga Directa Activado</div>
-            <div class="media-meta">Pega cualquier enlace de YouTube o Facebook arriba para comenzar</div>
-        </div>
-    </div>
-
-    <div id="tab-descargas" class="content">
-        <h4 style="margin-bottom: 12px; color: #00ff66;" id="lblDescargas">Centro de Descargas</h4>
-        <div id="listaDescargas">
-            <p style="color: #555; font-size: 0.85rem;" id="lblSinDescargas">No hay descargas activas.</p>
+    <div class="content">
+        <h4 style="color: #00ff66;" id="lblResultados">Resultados</h4>
+        <div id="resultsContainer" class="results-grid">
+            <p style="color: #666; font-size: 0.85rem;">Escribe el nombre de un artista o mezcla arriba para comenzar.</p>
         </div>
     </div>
 
-    <!-- MODAL POPUP -->
+    <!-- MODAL POPUP DESCARGAS -->
     <div id="downloadModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -73,40 +64,75 @@
                 <button class="close-btn" onclick="cerrarModal()">&times;</button>
             </div>
 
-            <div class="section-label">🎵 Formato Audio (Guardar en: /DJ Tube Audio)</div>
+            <div class="section-label">🎵 Descargar Audio (Carpeta: /DJ Tube Audio)</div>
             <div class="options-grid">
                 <button class="quality-btn" onclick="procesarDescarga('mp3', '128k', 'audio')">MP3 128kbps</button>
-                <button class="quality-btn" onclick="procesarDescarga('mp3', '256k', 'audio')">MP3 256kbps</button>
-                <button class="quality-btn" style="grid-column: span 2; border-color: #00ff66;" onclick="procesarDescarga('mp3', '320k', 'audio')">MP3 320kbps HD</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp3', '320k', 'audio')" style="border-color:#00ff66;">MP3 320kbps HD</button>
             </div>
 
-            <div class="section-label">🎬 Formato Video (Guardar en: /DJ Tube Video)</div>
+            <div class="section-label">🎬 Descargar Video (Carpeta: /DJ Tube Video)</div>
             <div class="options-grid">
                 <button class="quality-btn" onclick="procesarDescarga('mp4', '360', 'video')">MP4 360p</button>
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '480', 'video')">MP4 480p</button>
                 <button class="quality-btn" onclick="procesarDescarga('mp4', '720', 'video')">MP4 720p HD</button>
-                <button class="quality-btn" onclick="procesarDescarga('mp4', '1080', 'video')">MP4 1080p Full HD</button>
+                <button class="quality-btn" onclick="procesarDescarga('mp4', '1080', 'video')" style="grid-column: span 2;">MP4 1080p Full HD</button>
             </div>
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('inicio', this)"><span>🏠</span><label id="navHome">Inicio</label></button>
-        <button class="nav-item" onclick="switchTab('descargas', this)"><span>📥</span><label id="navDown">Descargas</label></button>
-    </div>
-
     <script>
-        let currentTitle = 'Audio/Video DJ Tube';
         let currentUrl = '';
+        let currentTitle = '';
 
-        function capturarEnlaceCompartido(url) {
-            document.getElementById('searchInput').value = url;
-            abrirOpcionesDescarga('Contenido Compartido', url);
+        async function buscarOProcesar() {
+            const query = document.getElementById('searchInput').value.trim();
+            if(!query) return;
+
+            const status = document.getElementById('statusText');
+            const container = document.getElementById('resultsContainer');
+
+            // Si es un enlace directo
+            if (query.startsWith('http://') || query.startsWith('https://')) {
+                abrirOpciones(query, 'Enlace Multimedia');
+                return;
+            }
+
+            // Si es búsqueda por texto (ej: "DJ Jhoan Rodríguez" u "Ozuna")
+            status.style.display = 'block';
+            status.innerText = '🔍 Buscando en YouTube...';
+            container.innerHTML = '';
+
+            try {
+                const res = await fetch(`https://pipedapi.kavin.rocks/search?q=${encodeURIComponent(query)}&filter=videos`);
+                const data = await res.json();
+                status.style.display = 'none';
+
+                if (data.items && data.items.length > 0) {
+                    data.items.slice(0, 15).forEach(item => {
+                        const videoUrl = 'https://www.youtube.com' + item.url;
+                        const card = document.createElement('div');
+                        card.className = 'media-card';
+                        card.innerHTML = `
+                            <img class="media-thumb" src="${item.thumbnail}" alt="thumb">
+                            <div class="media-info">
+                                <div class="media-title">${item.title}</div>
+                                <div class="media-meta">${item.uploaderName} • ${item.duration ? Math.floor(item.duration/60) + 'm' : ''}</div>
+                            </div>
+                            <button class="btn-down" onclick="abrirOpciones('${videoUrl}', '${item.title.replace(/'/g, "")}')">Bajar</button>
+                        `;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p style="color: #aaa;">No se encontraron resultados para esta búsqueda.</p>';
+                }
+            } catch (err) {
+                status.style.display = 'none';
+                container.innerHTML = '<p style="color: #ff4444;">Error de conexión al buscar. Intenta de nuevo.</p>';
+            }
         }
 
-        function abrirOpcionesDescarga(titulo, url) {
-            currentTitle = titulo;
+        function abrirOpciones(url, titulo) {
             currentUrl = url;
+            currentTitle = titulo;
             document.getElementById('modalTrackTitle').innerText = titulo;
             document.getElementById('downloadModal').style.display = 'flex';
         }
@@ -119,10 +145,9 @@
             cerrarModal();
             const status = document.getElementById('statusText');
             status.style.display = 'block';
-            status.innerText = '⚡ Convirtiendo enlace multimedia...';
+            status.innerText = '⚡ Generando enlace de descarga...';
 
             try {
-                // Petición a servidor extractor
                 const res = await fetch('https://api.cobalt.tools/api/json', {
                     method: 'POST',
                     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -137,36 +162,20 @@
                 const data = await res.json();
 
                 if (data.url) {
-                    status.innerText = '✅ Descarga iniciada en tu teléfono...';
-                    const tituloFinal = 'DJ_Tube_' + Date.now();
-                    
+                    status.innerText = '✅ Descarga iniciada...';
                     if (window.AndroidInterface && window.AndroidInterface.descargarArchivo) {
-                        window.AndroidInterface.descargarArchivo(data.url, tituloFinal, extension, tipo);
+                        window.AndroidInterface.descargarArchivo(data.url, currentTitle || 'DJ_Tube_Track', extension, tipo);
                     } else {
                         window.location.href = data.url;
                     }
                 } else {
-                    status.innerText = '⚠️ No se pudo extraer la descarga. Revisa el enlace.';
+                    status.innerText = '⚠️ No se pudo extraer la descarga.';
                 }
             } catch (err) {
-                status.innerText = '⚠️ Error conectando al servidor de conversión.';
+                status.innerText = '⚠️ Error en el servidor de conversión.';
             }
 
-            setTimeout(() => { status.style.display = 'none'; }, 5000);
-        }
-
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        function ejecutarBusqueda() {
-            const query = document.getElementById('searchInput').value;
-            if(query) {
-                abrirOpcionesDescarga('Enlace multimedia', query);
-            }
+            setTimeout(() => { status.style.display = 'none'; }, 4000);
         }
     </script>
 </body>
